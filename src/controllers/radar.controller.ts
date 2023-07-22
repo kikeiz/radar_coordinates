@@ -272,6 +272,7 @@ export class RadarController{
     public targetCoordinates = (req: Request, res: Response):Response =>{
         const {protocols , scan} = req.body
         
+        console.log(2, {protocols , scan})
         if(ValidateRequest.noValidRequest(protocols, scan))
             return AuxiliarMethods.responseGenerator(res,  ResponseCodes.requestError, ResponseMessages.requestError)
 

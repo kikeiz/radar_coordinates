@@ -1,8 +1,14 @@
-import app from "./app";
-require('dotenv').config();
+import {proxy, createServer} from 'aws-serverless-express'
+import {eventContext} from 'aws-serverless-express/middleware';
+import app from './app';
+import { APIGatewayProxyHandler } from 'aws-lambda';
 
-const port = process.env.PORT || 3000;
+app.use(eventContext())
+const server = createServer(app)
 
-app.listen(port, () => {
-   console.info(`Express server listening on port ${port}`)
-});
+
+export const handler: APIGatewayProxyHandler = async (event, context) => {
+   console.log('event', event)
+   
+   return proxy(server, event, context, 'PROMISE').promise;
+};
