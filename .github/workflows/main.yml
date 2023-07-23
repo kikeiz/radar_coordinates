@@ -17,6 +17,8 @@ jobs:
         node-version: '18.x'
     - name: Install NPM dependencies
       run: npm ci --cache .npm --prefer-offline
+    - name: Install Serverless Framework
+      run: npm install -g serverless
     - name: Serverless AWS authentication
       run: sls config credentials --provider aws --key ${{ secrets.AWS_ACCESS_KEY_ID }} --secret ${{ secrets.AWS_SECRET_ACCESS_KEY }}
     - name: Build
