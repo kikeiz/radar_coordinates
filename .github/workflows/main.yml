@@ -15,15 +15,11 @@ jobs:
     - uses: actions/setup-node@v1
       with:
         node-version: '18.x'
-    - uses: actions/github-script@v5
+    - name: Tag version
+      uses: tvdias/github-tagger@v0.0.1
       with:
-        script: |
-          github.rest.git.createRef({
-            owner: context.repo.owner,
-            repo: context.repo.repo,
-            ref: 'refs/tags/${{ env.DEPLOY_ENV }}-{{ github.run_number }}',
-            sha: context.sha
-          })
+        repo-token: ${{ secrets.ACCESS_TOKEN }}
+        tag: ${{ steps.date.outputs.date }}
     - name: Install NPM dependencies
       run: npm ci --cache .npm --prefer-offline
     - name: Install Serverless Framework
