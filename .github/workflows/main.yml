@@ -19,7 +19,7 @@ jobs:
       uses: tvdias/github-tagger@v0.0.1
       with:
         repo-token: ${{ secrets.ACCESS_TOKEN }}
-        tag: ${{ steps.date.outputs.date }}
+        tag: ${{ env.DEPLOY_ENV }}-${{ github.run_id }}
     - name: Install NPM dependencies
       run: npm ci --cache .npm --prefer-offline
     - name: Install Serverless Framework
