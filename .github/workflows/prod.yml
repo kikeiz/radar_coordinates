@@ -1,0 +1,12 @@
+name: Deploy Prod
+on:
+  workflow_dispatch:
+jobs:
+  deploy-prod:
+    name: Deploy
+    runs-on: ubuntu-latest
+    environment: development
+
+    steps:
+    - name: Install NPM dependencies
+      run: npm ci --cache .npm --prefer-offline
