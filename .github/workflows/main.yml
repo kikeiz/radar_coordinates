@@ -8,22 +8,6 @@ env:
   DEPLOY_ENV: dev
   
 jobs:
-  create_tag:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout Code
-        uses: actions/checkout@v2
-
-      - name: Set Tag Name
-        id: set_tag_name
-        run: echo "v1.${{ github.run_number }}" >> tag_name.txt
-
-      - name: Create Tag
-        run: |
-          TAG_NAME=$(cat tag_name.txt)
-          echo "Creating tag $TAG_NAME"
-          git tag $TAG_NAME
-          git push origin $TAG_NAME
   deploy-dev:
     runs-on: ubuntu-latest
     steps:
@@ -31,6 +15,15 @@ jobs:
     - uses: actions/setup-node@v1
       with:
         node-version: '18.x'
+    - uses: actions/github-script@v5
+      with:
+        script: |
+          github.rest.git.createRef({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            ref: 'refs/tags/${{ env.DEPLOY_ENV }}-{{ github.run_number }}',
+            sha: context.sha
+          })
     - name: Install NPM dependencies
       run: npm ci --cache .npm --prefer-offline
     - name: Install Serverless Framework
