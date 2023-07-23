@@ -13,4 +13,5 @@ jobs:
 
     steps:
     - name: Print Tag/Branch Name
-      run: 'echo "Triggered tag/branch name: ${{ github.event.inputs.ref }}"'
+      run: |
+       echo "Triggered tag/branch name: ${{ github.event.inputs.ref }}"
