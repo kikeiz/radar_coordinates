@@ -25,6 +25,8 @@ jobs:
       run: |
        NODE_OPTIONS=--max_old_space_size=4092
        npm run build
+    - name: Deploy
+      run: |
        sls deploy --stage ${{ env.DEPLOY_ENV }} --verbose --force
        sls plugin install -n serverless-prune-plugin
        sls prune --stage $DEPLOY_ENV -n 5 
