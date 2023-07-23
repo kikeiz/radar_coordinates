@@ -3,7 +3,7 @@ service: 'coordinates-service'
 provider:
   name: aws
   runtime: nodejs18.x
-  region: 'eu-central-1'
+  region: 'us-west-2'
   architecture: arm64
   timeout: 60
   memorySize: 1024
