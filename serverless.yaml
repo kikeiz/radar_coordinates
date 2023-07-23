@@ -9,7 +9,7 @@ provider:
   memorySize: 1024
   deploymentMethod: direct
   versionFunctions: false
-  deploymentBucket: serverless-pipeline-code
+  deploymentBucket: serverless-pipeline-code-thebridge
   tags:
     app: platform
     env: '${opt:stage}'
