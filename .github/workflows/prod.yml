@@ -1,10 +1,6 @@
 name: Deploy Prod
 on:
   workflow_dispatch:
-    inputs:
-      ref:
-        description: 'Tag or branch name'
-        required: true
 jobs:
   deploy-prod:
     name: Deploy
@@ -14,4 +10,4 @@ jobs:
     steps:
     - name: Print Tag/Branch Name
       run: |
-       echo "Triggered tag/branch name: ${{ github.event.inputs.ref }}"
+       echo "Triggered tag/branch name: ${{ github.ref }}"
