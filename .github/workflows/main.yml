@@ -2,7 +2,7 @@ name: Deploy Dev
 on:
   push:
     branches:
-      - master
+      - main
 
 env:
   DEPLOY_ENV: dev
