@@ -3,6 +3,9 @@ on:
   push:
     branches:
       - main
+  pull_request:
+    branches:
+      - main
   workflow_dispatch:
     inputs:
       environment:
@@ -11,7 +14,7 @@ on:
         options:
         - prod
 env:
-  DEPLOY_ENV: ${{ github.event.inputs.environment || 'dev' }}
+  DEPLOY_ENV: dev
 
 jobs:
   deploy-dev:
