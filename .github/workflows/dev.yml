@@ -43,4 +43,4 @@ jobs:
       run: |
        sls deploy --stage ${{ env.DEPLOY_ENV }} --verbose --force
        sls plugin install -n serverless-prune-plugin
-       sls prune --stage ${{ env.DEPLOY_ENV }} -n 5 
+       sls prune --stage $DEPLOY_ENV -n 5 
