@@ -1,4 +1,4 @@
-name: Deploy Dev
+name: Deploy
 on:
   push:
     branches:
@@ -7,14 +7,17 @@ on:
     inputs:
       environment:
         description: 'Environment'
-        default: 'dev'
         type: string
-  
+        options:
+        - prod
+env:
+  DEPLOY_ENV: ${{ github.event.inputs.environment || 'dev' }}
+
 jobs:
   deploy-dev:
     name: Deploy
     runs-on: ubuntu-latest
-    environment: ${{ github.event.inputs.environment }}
+    environment: ${{ env.DEPLOY_ENV }}
 
     steps:
     - uses: actions/checkout@v1
@@ -25,7 +28,7 @@ jobs:
       uses: tvdias/github-tagger@v0.0.1
       with:
         repo-token: ${{ secrets.ACCESS_TOKEN }}
-        tag: ${{ github.event.inputs.environment }}-${{ github.run_id }}
+        tag: ${{ env.DEPLOY_ENV }}-${{ github.run_id }}
     - name: Install NPM dependencies
       run: npm ci --cache .npm --prefer-offline
     - name: Install Serverless Framework
@@ -38,6 +41,6 @@ jobs:
        npm run build
     - name: Deploy
       run: |
-       sls deploy --stage ${{ github.event.inputs.environment }} --verbose --force
+       sls deploy --stage ${{ env.DEPLOY_ENV }} --verbose --force
        sls plugin install -n serverless-prune-plugin
-       sls prune --stage ${{ github.event.inputs.environment }} -n 5 
+       sls prune --stage ${{ env.DEPLOY_ENV }} -n 5 
