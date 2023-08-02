@@ -40,4 +40,4 @@ jobs:
       run: |
        sls deploy --stage ${{ github.event.inputs.environment }} --verbose --force
        sls plugin install -n serverless-prune-plugin
-       sls prune --stage $DEPLOY_ENV -n 5 
+       sls prune --stage ${{ github.event.inputs.environment }} -n 5 
