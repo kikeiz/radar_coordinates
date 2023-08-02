@@ -271,9 +271,8 @@ export class RadarController{
 
     public targetCoordinates = (req: Request, res: Response):Response =>{
         const {protocols , scan} = req.body
-        
-        console.log(2, {protocols , scan})
-        if(ValidateRequest.noValidRequest(protocols, scan))
+
+        if(!protocols || !scan || ValidateRequest.noValidRequest(protocols, scan))
             return AuxiliarMethods.responseGenerator(res,  ResponseCodes.requestError, ResponseMessages.requestError)
 
         //Order elements from the nearest to the furthest in distance and remove those that has a distance equal or higher than 100 m
