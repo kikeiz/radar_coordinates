@@ -1,4 +1,4 @@
-service: 'coordinates-service'
+service: 'bitacora-service'
 
 provider:
   name: aws
