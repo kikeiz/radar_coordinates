@@ -14,13 +14,13 @@ on:
         options:
         - prod
 env:
-  DEPLOY_ENV: dev
+  DEPLOY_ENV: ${{ github.event.inputs.environment || 'dev' }}
 
 jobs:
   deploy-dev:
     name: Deploy
     runs-on: ubuntu-latest
-    environment: echo $DEPLOY_ENV
+    environment: $DEPLOY_ENV
 
     steps:
     - uses: actions/checkout@v1
